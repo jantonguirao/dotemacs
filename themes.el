@@ -1,4 +1,3 @@
-
 (add-to-list 'custom-theme-load-path "~/.emacs.d/dotemacs/themes")
 
 ;; marmalade

@@ -1,4 +1,3 @@
-
 ;; Global configuration
 (load-file "~/.emacs.d/dotemacs/global.el")
 ;; C/C++ specific

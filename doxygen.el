@@ -6,12 +6,12 @@
 
 (defun dg-insert-function-header ()
   (interactive)
-  (insert "/*!\n"
-          " * \@brief \n"
-          " *\n"
-          " * \@author " user-mail-address "\n"
-          " * \@date " (format-time-string "%m/%d/%Y") "\n"
-          " */\n")
+  (insert "/**\n"
+          "  * \@brief \n"
+          "  *\n"
+          "  * \@author " user-mail-address "\n"
+          "  * \@date " (format-time-string "%m/%d/%Y") "\n"
+          "  */\n")
   (search-backward "brief")
   (end-of-line))
 
@@ -20,13 +20,13 @@
   "Prompts for the name of a new class, then writes suitable Doxygen markup
 for the class documentation and inserts lines for the ctor/dtor pair."
   (interactive "sClass Name: ")
-  (insert "/*!\n"
-          " * \@class " class-name "\n"
-          " * \@brief \n"
-          " *\n"
-          " * \@author " user-mail-address "\n"
-          " * \@date " (format-time-string "%m/%d/%Y") "\n"
-          " */\n"
+  (insert "/**\n"
+          "  * \@class " class-name "\n"
+          "  * \@brief \n"
+          "  *\n"
+          "  * \@author " user-mail-address "\n"
+          "  * \@date " (format-time-string "%m/%d/%Y") "\n"
+          "  */\n"
           "class " class-name "\n"
           "{\n"
           "public:\n"
@@ -62,14 +62,14 @@ it only includes basic header information"
 ;; insert a nice doxygen file documentation block and preprocessor template
 (defun dg-insert-header-file-header (basename extension)
   (interactive)
-  (insert "#ifndef _" (upcase basename) "_" (upcase extension) "_\n"
-          "#define _" (upcase basename) "_" (upcase extension) "_\n\n"
-          "/*!\n"
-          " * \@file " (file-name-nondirectory (buffer-file-name)) "\n"
-          " *\n"
-          " * \@author " user-mail-address "\n"
-          " * \@date " (format-time-string "%m/%d/%Y") "\n"
-          " */\n")
+  (insert "/**\n"
+          "  * \@file " (file-name-nondirectory (buffer-file-name)) "\n"
+          "  *\n"
+          "  * \@author " user-mail-address "\n"
+          "  * \@date " (format-time-string "%m/%d/%Y") "\n"
+          "  */\n\n"
+          "#ifndef _" (upcase basename) "_" (upcase extension) "_\n"
+          "#define _" (upcase basename) "_" (upcase extension) "_\n\n")
   (goto-char (point-max))
   (move-beginning-of-line nil)
   (insert "\n#endif\n")
@@ -78,22 +78,22 @@ it only includes basic header information"
 ;; insert a nice doxygen file documentation block
 (defun dg-insert-cpp-file-header (basename)
   (interactive)
-  (insert "/*!\n"
-          " * \@file " (file-name-nondirectory (buffer-file-name)) "\n"
-          " *\n"
-          " * \@author " user-mail-address "\n"
-          " * \@date " (format-time-string "%m/%d/%Y") "\n"
-          " */\n"))
+  (insert "/**\n"
+          "  * \@file " (file-name-nondirectory (buffer-file-name)) "\n"
+          "  *\n"
+          "  * \@author " user-mail-address "\n"
+          "  * \@date " (format-time-string "%m/%d/%Y") "\n"
+          "  */\n"))
 
 ;; add useful behaviour to c-mode
-;;(add-hook 'c-mode-hook
-;;          (lambda ()
-;;            (define-key c-mode-map "\C-m" 'reindent-then-newline-and-indent)))
+(add-hook 'c-mode-hook
+         (lambda ()
+           (define-key c-mode-map "\C-m" 'reindent-then-newline-and-indent)))
 
 ;; add useful behaviour to c++-mode
-;;(add-hook 'c++-mode-hook
-;;          (lambda ()
-;;            (define-key c++-mode-map "\C-m" 'reindent-then-newline-and-indent)
-;;            (define-key c++-mode-map "\C-c\C-d" 'dg-insert-file-header)
-;;            (define-key c++-mode-map "\C-c\C-f" 'dg-insert-function-header)
-;;            (define-key c++-mode-map "\C-c\C-c" 'dg-insert-class-header)))
+(add-hook 'c++-mode-hook
+         (lambda ()
+           (define-key c++-mode-map "\C-m" 'reindent-then-newline-and-indent)
+           (define-key c++-mode-map "\C-c\C-d" 'dg-insert-file-header)
+           (define-key c++-mode-map "\C-c\C-f" 'dg-insert-function-header)
+           (define-key c++-mode-map "\C-c\C-c" 'dg-insert-class-header)))
