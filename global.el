@@ -42,10 +42,10 @@
 ;; (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
 
 ;; Matchink pairs
-(setq skeleton-pair t)
-(global-set-key "(" 'skeleton-pair-insert-maybe)
-(global-set-key "[" 'skeleton-pair-insert-maybe)
-(global-set-key "{" 'skeleton-pair-insert-maybe)
+;; (setq skeleton-pair t)
+;; (global-set-key "(" 'skeleton-pair-insert-maybe)
+;; (global-set-key "[" 'skeleton-pair-insert-maybe)
+;; (global-set-key "{" 'skeleton-pair-insert-maybe)
 
 ;; Kill backward word
 (global-set-key "\C-w" 'backward-kill-word)
@@ -63,3 +63,43 @@
 
 ;; IDO mode for better find file
 (ido-mode 1)
+
+;; Comment region
+(defun comment-eclipse ()
+      (interactive)
+      (let ((start (line-beginning-position))
+            (end (line-end-position)))
+        (when (region-active-p)
+          (setq start (save-excursion
+                        (goto-char (region-beginning))
+                        (beginning-of-line)
+                        (point))
+                end (save-excursion
+                      (goto-char (region-end))
+                      (end-of-line)
+                      (point))))
+        (comment-or-uncomment-region start end)))
+
+(global-set-key "\M-;" 'comment-eclipse)
+
+
+;; SMART TAB
+;function to implement a smarter TAB
+(global-set-key [(tab)] 'smart-tab)
+(defun smart-tab ()
+"This smart tab is minibuffer compliant: it acts as usual in
+the minibuffer. Else, if mark is active, indents region. Else if
+point is at the end of a symbol, expands it. Else indents the
+current line."
+(interactive)
+(if (minibufferp)
+(unless (minibuffer-complete)
+(dabbrev-expand nil))
+(if mark-active
+(indent-region (region-beginning)
+(region-end))
+(if (looking-at "\\_>")
+(dabbrev-expand nil)
+(indent-for-tab-command)))))
+
+(global-set-key (kbd "TAB") 'smart-tab)

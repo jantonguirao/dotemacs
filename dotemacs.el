@@ -8,3 +8,5 @@
 (load-file "~/.emacs.d/dotemacs/themes.el")
 ;; Mac OS X settings
 (load-file "~/.emacs.d/dotemacs/macosx.el")
+;; Code navigation
+(load-file "~/.emacs.d/dotemacs/code_navigation.el")
