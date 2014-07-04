@@ -21,6 +21,7 @@
              (c-set-style "K&R")
              (c-toggle-auto-state)
              (c-toggle-auto-hungry-state)
+             (c-set-offset 'case-label '+) ;switch/case:  make each case line indent from switch
              (setq tab-width 4)
              (setq c-basic-offset 4)))
 
@@ -29,6 +30,14 @@
              (c-set-style "stroustrup")
              (c-toggle-auto-state)
              (setq tab-width 4)
+             (c-set-offset 'case-label '+) ;switch/case:  make each case line indent from switch
              (c-toggle-auto-hungry-state)))
+
+;; indent switch
+;;; set this in all c-based programming modes
+(add-hook 'c-mode-common-hook
+          (lambda ()
+             (c-set-offset 'case-label '+)))
+
 
 (provide 'init-cpp)
