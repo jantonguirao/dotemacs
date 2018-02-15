@@ -10,3 +10,5 @@
 (load-file "~/.emacs.d/dotemacs/macosx.el")
 ;; Code navigation
 (load-file "~/.emacs.d/dotemacs/code_navigation.el")
+;; QML
+(load-file "~/.emacs.d/dotemacs/qml-mode.el")
